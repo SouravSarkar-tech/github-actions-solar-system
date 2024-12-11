@@ -95,4 +95,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: 'ghcr.io/souravsarkar-tech/solar-system:${{ github.sha }}'
+          tags: 'ghcr.io/souravsarkar-tech/solar-system1:${{ github.sha }}'
