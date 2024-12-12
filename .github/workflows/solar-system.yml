@@ -97,25 +97,17 @@ jobs:
           push: true
           tags: 'ghcr.io/souravsarkar-tech/solar-system1:${{ github.sha }}'
     dev-deploy:
-      runs-on: ubuntu-latest
       needs: docker
-      environment: 
+      runs-on: ubuntu-latest
+      environment:
         name: development
       steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Kubectl
-        uses: azure/setup-kubectl@v4
-        with:
-          version: 'v1.26.0'
-      
-      - name: Setup Kubeconfig
-        uses: azure/k8s-set-context@v3
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
-
-      - name: Run Kubectl Commands
-        run: |
-          kubectl version --short -o yaml
+        - uses: actions/checkout@v4
+        - uses: azure/setup-kubectl@v3
+          with:
+            version: v1.26.0
+        - uses: azure/k8s-set-context@v3
+          with:
+            method: kubeconfig
+            kubeconfig: '${{ secrets.KUBECONFIG }}'
+        - run: kubectl version --short -o yaml
